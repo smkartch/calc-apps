@@ -4,16 +4,18 @@ import (
 	"fmt"
 	"io"
 	"strconv"
-
-	"github.com/smkartch/calc-lib"
 )
+
+type Calculator interface {
+	Calculate(a, b int) int
+}
 
 type Handler struct {
 	stdout     io.Writer
-	calculator *calc.Addition
+	calculator Calculator
 }
 
-func NewHandler(stdout io.Writer, calculator *calc.Addition) *Handler {
+func NewHandler(stdout io.Writer, calculator Calculator) *Handler {
 	return &Handler{
 		stdout:     stdout,
 		calculator: calculator,
