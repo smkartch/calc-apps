@@ -33,7 +33,7 @@ func TestHandler_InvalidSecondArgument(t *testing.T) {
 func TestHandler_OutputWriterError(t *testing.T) {
 	oops := errors.New("oops")
 	writer := &ErringWriter{err: oops}
-	handler := NewHandler(writer, nil)
+	handler := NewHandler(writer, &calc.Addition{})
 	err := handler.Handle([]string{"2", "3"})
 	assertError(t, err, oops)
 	assertError(t, err, errWriterFailure)
