@@ -2,6 +2,7 @@ package should_test
 
 import (
 	"errors"
+	"fmt"
 	"testing"
 	"time"
 
@@ -74,4 +75,10 @@ func TestShouldBeNil(t *testing.T) {
 func TestShouldNotBeNil(t *testing.T) {
 	pass(t, &time.Time{}, should.NOT.BeNil)
 	fail(t, nil, should.NOT.BeNil)
+}
+func TestShouldWrapError(t *testing.T) {
+	inner := errors.New("inner")
+	outer := fmt.Errorf("output: %w", inner)
+	pass(t, outer, should.WrapError, inner)
+	fail(t, inner, should.WrapError, outer)
 }

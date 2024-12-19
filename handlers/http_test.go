@@ -6,15 +6,14 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/http/httputil"
-	"reflect"
 	"testing"
+
+	"github.com/smkartch/calc-apps/externals/should"
 )
 
 func assertEqual(t *testing.T, expected, actual any) {
 	t.Helper()
-	if !reflect.DeepEqual(actual, expected) {
-		t.Errorf("got: [%v] want: [%v]", actual, expected)
-	}
+	should.So(t, actual, should.Equal, expected)
 }
 
 func TestHTTPServer_NotFound(t *testing.T) {
